@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="onInitialize()">
+
+<mx:Script>
+	<![CDATA[
+		import kr.reflexion.crypto.symmetric.SeedKey;
+
+		public function onInitialize():void {
+			var key:Array = [ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ];
+			var plaintext:Array = [ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f ];
+			var ciphertext:Array = [ 0x5e, 0xba, 0xc6, 0xe0, 0x05, 0x4e, 0x16, 0x68, 0x19, 0xaf, 0xf1, 0xcc, 0x6d, 0x34, 0x6c, 0xdb ];
+			
+			var seed:SeedKey = new SeedKey(toByteArray(key));
+			var source:ByteArray = toByteArray(plaintext);
+			
+			var i:int = 0;
+			for (i=0; i<1; i++) {
+				seed.encrypt(source, i * 16);
+			}
+			for (i=0; i<source.length; i++) {
+				trace("cipher", source[i], ciphertext[i]);
+			}
+			
+			for (i=0; i<1; i++) {
+				seed.decrypt(source, i * 16);
+			}
+			for (i=0; i<source.length; i++) {
+				trace("decipher", source[i], plaintext[i]);
+			}
+		}
+		
+		public function toByteArray(a:Array):ByteArray {
+			var result:ByteArray = new ByteArray();
+			for (var i:int=0; i<a.length; i++) {
+				result.writeByte(a[i]);
+			}
+			return result;
+		}
+	]]>
+</mx:Script>
+	
+</mx:WindowedApplication>
