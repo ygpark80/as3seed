@@ -1,0 +1,1 @@
+as3seed is a direct conversion of the Bouncy Castle Crypto APIs' SEED implementation intended to be used in Adobe Flash 9+ environment. This is a preliminary version which has not been tested nor used in any production environment.
